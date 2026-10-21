@@ -1,0 +1,202 @@
+/* --- RESET & DASAR --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f6f8;
+    color: #333;
+    padding: 15px;
+}
+
+/* --- HEADER --- */
+header {
+    background: #ffffff;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto 15px auto;
+}
+
+header h1 {
+    font-size: 1.2rem;
+    color: #ea580c;
+}
+
+.table-input {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.table-input input {
+    width: 45px;
+    padding: 4px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #ea580c;
+}
+
+/* --- UTAMA & GRID (RESPONSIF HP/LAPTOP) --- */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+/* Tampilan Desktop / Laptop */
+@media (min-width: 768px) {
+    main {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.card {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* --- KATALOG MENU --- */
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.search-bar:focus {
+    border-color: #ea580c;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+@media (min-width: 480px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.menu-item {
+    border: 1px solid #eee;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+}
+
+.menu-title {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.menu-price {
+    font-size: 0.8rem;
+    color: #ea580c;
+    font-weight: 600;
+}
+
+/* --- TOMBOL TAMBAH/KURANG --- */
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-qty {
+    background: #ea580c;
+    color: white;
+    border: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-qty.minus {
+    background: #e5e7eb;
+    color: #333;
+}
+
+.qty-count {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* --- KERANJANG & CHECKOUT --- */
+.cart-card {
+    height: fit-content;
+    position: sticky;
+    top: 15px;
+}
+
+.cart-title {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.cart-list {
+    max-height: 220px;
+    overflow-y: auto;
+    font-size: 0.85rem;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed #eee;
+    padding: 6px 0;
+}
+
+.cart-total {
+    border-top: 1px solid #eee;
+    margin-top: 12px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.total-price {
+    color: #ea580c;
+}
+
+.btn-wa {
+    width: 100%;
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-wa:hover {
+    background: #16a34a;
+}
