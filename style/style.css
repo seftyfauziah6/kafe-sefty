@@ -3,21 +3,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Times New Roman', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f4f6f8;
-    color: #333;
+    background-color: #576100;
+    color: #F4F8DE;
     padding: 15px;
 }
 
 /* --- HEADER --- */
 header {
-    background: #ffffff;
+    background: #E26A85;
     padding: 15px 20px;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,47,20,3);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -186,7 +186,7 @@ main {
 
 .btn-wa {
     width: 100%;
-    background: #22c55e;
+    background: #F48DE;
     color: white;
     border: none;
     padding: 10px;
