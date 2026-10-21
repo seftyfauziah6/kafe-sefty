@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiMenu Cafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans p-4 text-gray-800">
+
+    <header class="bg-white p-4 rounded-xl shadow mb-4 flex justify-between items-center max-w-4xl mx-auto">
+        <h1 class="font-bold text-lg text-orange-600">☕ DigiMenu</h1>
+        <div class="text-sm font-medium">Meja: <input type="number" id="meja" value="1" class="w-12 border rounded text-center"></div>
+    </header>
+
+    <main class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Katalog Menu -->
+        <section class="md:col-span-2 bg-white p-4 rounded-xl shadow">
+            <input type="text" id="search" placeholder="Cari menu..." oninput="renderMenu()" class="w-full border p-2 rounded-lg mb-4 text-sm">
+            <div id="menu-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+        </section>
+
+        <!-- Keranjang Pesanan -->
+        <section class="bg-white p-4 rounded-xl shadow h-fit sticky top-4">
+            <h2 class="font-bold border-b pb-2 mb-3">Pesanan Anda</h2>
+            <div id="cart-list" class="space-y-2 text-sm max-h-60 overflow-y-auto"></div>
+            <div class="border-t pt-3 mt-3 font-bold flex justify-between text-base">
+                <span>Total:</span>
+                <span id="total-price" class="text-orange-600">Rp 0</span>
+            </div>
+            <button onclick="kirimWA()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-lg mt-4 text-sm">
+                Kirim ke WhatsApp
+            </button>
+        </section>
+    </main>
+
+    <script>
+        const NO_WA = "6281234567890"; // Ganti nomor kasir
+        const menus = [
+            { id: 1, name: "Kopi Susu", price: 15000 },
+            { id: 2, name: "Americano", price: 12000 },
+            { id: 3, name: "Matcha Ice", price: 18000 },
+            { id: 4, name: "Nasi Goreng", price: 20000 },
+            { id: 5, name: "French Fries", price: 12000 }
+        ];
+        let cart = {};
+
+        function fmt(num) { return "Rp " + num.toLocaleString('id-ID'); }
+
+        function renderMenu() {
+            const q = document.getElementById('search').value.toLowerCase();
+            const list = document.getElementById('menu-list');
+            list.innerHTML = '';
+            menus.filter(m => m.name.toLowerCase().includes(q)).forEach(m => {
+                const qty = cart[m.id] || 0;
+                list.innerHTML += `
+                    <div class="border p-3 rounded-lg flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-sm">${m.name}</p>
+                            <p class="text-xs text-orange-600 font-semibold">${fmt(m.price)}</p>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            ${qty > 0 ? `<button onclick="updateCart(${m.id},-1)" class="bg-gray-200 px-2 rounded">-</button>` : ''}
+                            <span class="text-sm font-bold px-1">${qty}</span>
+                            <button onclick="updateCart(${m.id},1)" class="bg-orange-500 text-white px-2 rounded">+</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function updateCart(id, change) {
+            cart[id] = (cart[id] || 0) + change;
+            if (cart[id] <= 0) delete cart[id];
+            renderMenu();
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-list');
+            container.innerHTML = '';
+            let total = 0;
+            
+            Object.keys(cart).forEach(id => {
+                const item = menus.find(m => m.id == id);
+                const sub = item.price * cart[id];
+                total += sub;
+                container.innerHTML += `
+                    <div class="flex justify-between border-b pb-1">
+                        <span>${item.name} (${cart[id]}x)</span>
+                        <span class="font-semibold">${fmt(sub)}</span>
+                    </div>`;
+            });
+            
+            if (!Object.keys(cart).length) container.innerHTML = '<p class="text-gray-400 text-xs">Keranjang kosong</p>';
+            document.getElementById('total-price').innerText = fmt(total);
+        }
+
+        function kirimWA() {
+            if (!Object.keys(cart).length) return alert('Pilih menu dulu!');
+            const meja = document.getElementById('meja').value;
+            let msg = `*PESANAN MEJA ${meja}*\n------------------\n`;
+            let total = 0;
+            
+            Object.keys(cart).forEach(id => {
+                const item = menus.find(m => m.id == id);
+                const sub = item.price * cart[id];
+                total += sub;
+                msg += `• ${item.name} (${cart[id]}x) = ${fmt(sub)}\n`;
+            });
+            msg += `------------------\n*Total: ${fmt(total)}*`;
+            
+            window.open(`https://wa.me/${NO_WA}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        renderMenu();
+    </script>
+</body>
+</html>
